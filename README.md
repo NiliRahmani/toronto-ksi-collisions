@@ -1,5 +1,8 @@
 # toronto-ksi-collisions
 
+[![tests](https://github.com/NiliRahmani/toronto-ksi-collisions/actions/workflows/tests.yml/badge.svg)](https://github.com/NiliRahmani/toronto-ksi-collisions/actions/workflows/tests.yml)
+[![weekly refresh](https://github.com/NiliRahmani/toronto-ksi-collisions/actions/workflows/refresh.yml/badge.svg)](https://github.com/NiliRahmani/toronto-ksi-collisions/actions/workflows/refresh.yml)
+
 **Twenty years of Toronto's killed-or-seriously-injured collisions — starting with what one row actually means.**
 
 The City of Toronto publishes every collision in which someone was killed or
@@ -162,6 +165,13 @@ docs/walkthrough.md    # the study notes
 City of Toronto Open Data Portal, *Motor Vehicle Collisions Involving Killed or
 Seriously Injured Persons*, published by Toronto Police Service and refreshed
 daily. Retrieved over the public CKAN API. Coverage is the City of Toronto only.
+
+Because the source updates daily, this repository refreshes itself: a scheduled
+workflow pulls the current extract every Monday, rebuilds every figure and the
+report, re-runs the tests against the new data, and commits only if something
+actually changed. The numbers on this page are therefore never more than a week
+behind the City's, and `data/snapshot.json` always identifies the exact extract
+they came from.
 
 The code in this repository is MIT licensed. The data belongs to the City of
 Toronto and is subject to the portal's own terms.

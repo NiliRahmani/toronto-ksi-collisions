@@ -1,0 +1,70 @@
+name: weekly refresh
+
+# The City republishes this dataset daily. This job pulls the current extract
+# once a week, rebuilds every figure and the report, and commits the result only
+# if something actually moved. 06:12 UTC rather than the top of the hour, which
+# is when everyone else's cron jobs are queued.
+on:
+  schedule:
+    - cron: "12 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Chrome for PDF rendering
+        run: |
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+          rm google-chrome-stable_current_amd64.deb
+
+      - name: Rebuild the analysis from the current extract
+        run: python run.py
+
+      - name: Check the invariants still hold on the new data
+        run: pytest -q
+
+      - name: Render the report to PDF
+        run: python scripts/make_report_pdf.py
+
+      - name: Commit the refreshed results
+        run: |
+          git config user.name "Niloufar Rahmani"
+          git config user.email "Niloofar.rahmani12@gmail.com"
+
+          if git diff --quiet -- results assets data/snapshot.json; then
+            echo "The published extract has not changed since the last run."
+            exit 0
+          fi
+
+          SUMMARY=$(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          snap = json.loads(Path("data/snapshot.json").read_text())
+          print("{} extract: {:,} person rows across {:,} collisions".format(
+              snap["latest_collision"], snap["person_rows"], snap["collisions"]
+          ))
+          PY
+          )
+
+          git add results assets data/snapshot.json
+          git commit -m "Refresh from ${SUMMARY}"
+          git push
