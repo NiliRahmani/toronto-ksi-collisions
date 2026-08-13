@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Toronto Killed or Seriously Injured Collisions</title>
+<style>
+:root { color-scheme: light; }
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #0b0b0b; background: #fcfcfb;
+  margin: 0 auto; padding: 32px 40px 56px; max-width: 860px;
+  font-size: 10.5pt; line-height: 1.55;
+}
+h1 { font-size: 21pt; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 13.5pt; margin: 30px 0 10px; padding-bottom: 6px;
+     border-bottom: 1px solid #e1e0d9; }
+p { margin: 0 0 10px; }
+ul { margin: 0 0 12px; padding-left: 20px; }
+li { margin-bottom: 5px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 18px;
+        font-size: 8.6pt; font-variant-numeric: tabular-nums; }
+th { text-align: left; background: #f0efec; color: #52514e;
+     font-weight: 600; padding: 6px 8px; border-bottom: 1px solid #c3c2b7; }
+td { padding: 5px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+tr:last-child td { border-bottom: 1px solid #c3c2b7; }
+figure { margin: 16px 0 20px; }
+figure img { width: 100%; border: 1px solid #e1e0d9; border-radius: 4px; }
+figcaption { font-size: 8.5pt; color: #898781; margin-top: 6px; }
+.meta { color: #52514e; font-size: 9.5pt; margin-bottom: 22px; }
+.callout { background: #f0efec; border-left: 3px solid #2a78d6;
+           padding: 12px 16px; margin: 16px 0 20px; }
+.callout p:last-child { margin-bottom: 0; }
+@page { size: A4; margin: 14mm 14mm 16mm; }
+h2 { break-after: avoid; }
+table, figure { break-inside: avoid; }
+</style></head><body>
+<h1>Toronto Killed or Seriously Injured Collisions</h1>
+<p class="meta">What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-08-13  |  20,670 person records across 7,580 collisions</p>
+<h2>1. What one row is</h2>
+<div class="callout"><p>The file has one row per person involved in a collision, not one row per collision. The average collision involves 2.7 people. Counting rows therefore overstates every collision-level figure by roughly that factor, and the error is invisible — the numbers look plausible.</p></div>
+<p>This was not assumed from the column names. Every column was tested: for each one, does its value ever differ between two people in the same collision? 30 columns never vary within a collision, which makes them facts about the collision copied onto each person row. 16 columns do vary, which makes them facts about the person. Four are identifiers.</p>
+<p>The consequence is not academic. `acclass`, the severity of the collision, is one of the collision-level columns. Filtering rows on it and counting them answers neither of the two questions a reader would be asking.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>question</th>
+      <th>naive_method</th>
+      <th>naive_answer</th>
+      <th>correct_method</th>
+      <th>correct_answer</th>
+      <th>overstated_by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>How many KSI collisions are in this file?</td>
+      <td>count of rows</td>
+      <td>20670</td>
+      <td>count of distinct collision_id</td>
+      <td>7580</td>
+      <td>2.73</td>
+    </tr>
+    <tr>
+      <td>How many collisions were fatal?</td>
+      <td>count of rows where acclass = 'Fatal Injury'</td>
+      <td>2927</td>
+      <td>distinct collision_id where acclass = 'Fatal Injury'</td>
+      <td>1061</td>
+      <td>2.76</td>
+    </tr>
+    <tr>
+      <td>How many people were killed?</td>
+      <td>count of rows where acclass = 'Fatal Injury'</td>
+      <td>2927</td>
+      <td>count of rows where injury = 'Fatal'</td>
+      <td>1094</td>
+      <td>2.68</td>
+    </tr>
+    <tr>
+      <td>How many people were seriously injured?</td>
+      <td>count of rows where acclass = 'Non-Fatal Injury'</td>
+      <td>17724</td>
+      <td>count of rows where injury = 'Major'</td>
+      <td>7083</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>How many collisions involving a pedestrian?</td>
+      <td>count of rows where pedestrian is true</td>
+      <td>8436</td>
+      <td>distinct collision_id where pedestrian is true</td>
+      <td>3386</td>
+      <td>2.49</td>
+    </tr>
+    <tr>
+      <td>How many collisions involving a cyclist?</td>
+      <td>count of rows where cyclist is true</td>
+      <td>2150</td>
+      <td>distinct collision_id where cyclist is true</td>
+      <td>920</td>
+      <td>2.34</td>
+    </tr>
+    <tr>
+      <td>How many collisions flagged aggressive driving?</td>
+      <td>count of rows where aggressive is true</td>
+      <td>9235</td>
+      <td>distinct collision_id where aggressive is true</td>
+      <td>3157</td>
+      <td>2.93</td>
+    </tr>
+    <tr>
+      <td>How many collisions flagged distracted driving?</td>
+      <td>count of rows where distracted is true</td>
+      <td>6221</td>
+      <td>distinct collision_id where distracted is true</td>
+      <td>2242</td>
+      <td>2.77</td>
+    </tr>
+    <tr>
+      <td>How many collisions flagged red-light running?</td>
+      <td>count of rows where red_light is true</td>
+      <td>1689</td>
+      <td>distinct collision_id where red_light is true</td>
+      <td>472</td>
+      <td>3.58</td>
+    </tr>
+    <tr>
+      <td>How many collisions involving a heavy truck?</td>
+      <td>count of rows where heavy_truck is true</td>
+      <td>2788</td>
+      <td>distinct collision_id where heavy_truck is true</td>
+      <td>928</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>How many collisions flagged school child?</td>
+      <td>count of rows where school_child is true</td>
+      <td>4061</td>
+      <td>distinct collision_id where school_child is true</td>
+      <td>1091</td>
+      <td>3.72</td>
+    </tr>
+    <tr>
+      <td>How many collisions flagged older adult?</td>
+      <td>count of rows where older_adult is true</td>
+      <td>6000</td>
+      <td>distinct collision_id where older_adult is true</td>
+      <td>2164</td>
+      <td>2.77</td>
+    </tr>
+  </tbody>
+</table>
+<p>The two correct answers in the third row are different from each other and both are right: 1,061 collisions were fatal, and 1,094 people died in them. The gap is the collisions that killed more than one person, plus 6 records discussed in section 2. Which number belongs in a headline depends on whether the sentence is about crashes or about people, and that is a decision to make deliberately rather than by accident of query.</p>
+<p>The same trap sits under the word pedestrian. Collisions involving a pedestrian: 3,386. People present in those collisions: 8,436. Pedestrians actually involved: 3,645. Pedestrians killed: 601. All four are legitimate answers to questions that sound identical when spoken aloud.</p>
+<h2>2. Data quality</h2>
+<p>Rules were run against the extract exactly as published. The dataset is in good condition; the failures below are small, and they are recorded because a consumer needs to know about them before quoting a number, not as a criticism of the publisher.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>dimension</th>
+      <th>rule</th>
+      <th>records_failed</th>
+      <th>share_failed</th>
+      <th>outcome</th>
+      <th>impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Uniqueness</td>
+      <td>one row per (collision, vehicle, person)</td>
+      <td>0</td>
+      <td>0.00000</td>
+      <td>Pass</td>
+      <td>Confirms the stated grain. Nothing downstream is safe without it.</td>
+    </tr>
+    <tr>
+      <td>Completeness</td>
+      <td>acclass is populated</td>
+      <td>1</td>
+      <td>0.00005</td>
+      <td>Fail</td>
+      <td>A row with no severity class cannot be counted as fatal or non-fatal.</td>
+    </tr>
+    <tr>
+      <td>Completeness</td>
+      <td>coordinates are populated</td>
+      <td>3</td>
+      <td>0.00015</td>
+      <td>Fail</td>
+      <td>Rows without coordinates drop silently out of any map or spatial join.</td>
+    </tr>
+    <tr>
+      <td>Completeness</td>
+      <td>neighbourhood is populated</td>
+      <td>151</td>
+      <td>0.00731</td>
+      <td>Fail</td>
+      <td>Affects the neighbourhood ranking, which is built on this column.</td>
+    </tr>
+    <tr>
+      <td>Validity</td>
+      <td>coordinates fall inside Toronto</td>
+      <td>0</td>
+      <td>0.00000</td>
+      <td>Pass</td>
+      <td>No coordinate lands outside the city, so the geography can be trusted.</td>
+    </tr>
+    <tr>
+      <td>Validity</td>
+      <td>acclass uses a known severity code</td>
+      <td>0</td>
+      <td>0.00000</td>
+      <td>Pass</td>
+      <td>An unrecognised code would fall through every severity filter.</td>
+    </tr>
+    <tr>
+      <td>Validity</td>
+      <td>injury uses a known severity code</td>
+      <td>0</td>
+      <td>0.00000</td>
+      <td>Pass</td>
+      <td>Same risk on the person-level severity column.</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>a fatal injury sits in a collision classed fatal</td>
+      <td>6</td>
+      <td>0.00029</td>
+      <td>Fail</td>
+      <td>The two severity columns disagree, so the death count and the fatal collision count cannot both be right on these rows.</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>a collision classed fatal records at least one death</td>
+      <td>0</td>
+      <td>0.00000</td>
+      <td>Pass</td>
+      <td>Confirms the fatal classification is supported by a person record.</td>
+    </tr>
+    <tr>
+      <td>Scope</td>
+      <td>every record meets the killed-or-seriously-injured criterion</td>
+      <td>18</td>
+      <td>0.00087</td>
+      <td>Fail</td>
+      <td>Records classed property damage only do not belong in a KSI extract and will inflate any unfiltered collision count.</td>
+    </tr>
+  </tbody>
+</table>
+<ul><li>6 person records are marked injury = 'Fatal' while their collision is not classed 'Fatal Injury'. This is why the death count (1 per person record) and the fatal collision count do not reconcile to each other exactly, and the difference is precisely these rows.</li><li>18 person records across 8 collisions are classed 'Property Damage Only' in an extract published as killed-or-seriously-injured. They are kept in the figures here and flagged rather than dropped, because removing records from a public dataset without saying so is how two analysts end up with different totals.</li><li>injury is missing on 47% of rows, which is expected: it is populated only where there was an injury to record. The consequence is that severity has to be counted with an equality test, never with count() or a row count.</li></ul>
+<h2>3. Twenty years of KSI collisions</h2>
+<p>2006 to 2025. The final year in the extract is partial and is excluded from every trend in this report rather than plotted as a collapse.</p>
+<figure><img src="../assets/trend.png"><figcaption>KSI collisions per year, and deaths per 100 KSI collisions.</figcaption></figure>
+<div class="callout"><p>KSI collisions fell 47% between 2006 and 2025, from 481 to 254. Deaths per 100 KSI collisions moved the other way, from 11.9 to 15.7. Fewer collisions reach this threshold than twenty years ago, and a larger share of the ones that do are fatal.</p></div>
+<p>Two readings fit that pattern and this data cannot separate them. Either the collisions being prevented are disproportionately the survivable ones, or the reporting threshold for a serious injury has tightened over twenty years so that fewer non-fatal cases enter the file. A fatality is hard to misclassify; a serious injury is a judgement. Anyone using this trend to argue that roads have become more lethal per collision needs to rule the second explanation out first, and nothing in this extract does that.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>ksi_collisions</th>
+      <th>fatal_collisions</th>
+      <th>people_involved</th>
+      <th>people_killed</th>
+      <th>people_seriously_injured</th>
+      <th>deaths_per_100_collisions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2006</td>
+      <td>481</td>
+      <td>57</td>
+      <td>1483</td>
+      <td>57</td>
+      <td>488</td>
+      <td>11.9</td>
+    </tr>
+    <tr>
+      <td>2007</td>
+      <td>453</td>
+      <td>47</td>
+      <td>1474</td>
+      <td>51</td>
+      <td>442</td>
+      <td>11.3</td>
+    </tr>
+    <tr>
+      <td>2008</td>
+      <td>417</td>
+      <td>51</td>
+      <td>1239</td>
+      <td>54</td>
+      <td>394</td>
+      <td>12.9</td>
+    </tr>
+    <tr>
+      <td>2009</td>
+      <td>438</td>
+      <td>45</td>
+      <td>1242</td>
+      <td>48</td>
+      <td>431</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <td>2010</td>
+      <td>400</td>
+      <td>42</td>
+      <td>1190</td>
+      <td>43</td>
+      <td>402</td>
+      <td>10.8</td>
+    </tr>
+    <tr>
+      <td>2011</td>
+      <td>400</td>
+      <td>35</td>
+      <td>1181</td>
+      <td>35</td>
+      <td>392</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <td>2012</td>
+      <td>453</td>
+      <td>44</td>
+      <td>1348</td>
+      <td>44</td>
+      <td>430</td>
+      <td>9.7</td>
+    </tr>
+    <tr>
+      <td>2013</td>
+      <td>431</td>
+      <td>63</td>
+      <td>1232</td>
+      <td>63</td>
+      <td>401</td>
+      <td>14.6</td>
+    </tr>
+    <tr>
+      <td>2014</td>
+      <td>350</td>
+      <td>51</td>
+      <td>916</td>
+      <td>51</td>
+      <td>330</td>
+      <td>14.6</td>
+    </tr>
+    <tr>
+      <td>2015</td>
+      <td>350</td>
+      <td>65</td>
+      <td>929</td>
+      <td>65</td>
+      <td>320</td>
+      <td>18.6</td>
+    </tr>
+    <tr>
+      <td>2016</td>
+      <td>386</td>
+      <td>76</td>
+      <td>1006</td>
+      <td>78</td>
+      <td>337</td>
+      <td>20.2</td>
+    </tr>
+    <tr>
+      <td>2017</td>
+      <td>392</td>
+      <td>62</td>
+      <td>980</td>
+      <td>63</td>
+      <td>352</td>
+      <td>16.1</td>
+    </tr>
+    <tr>
+      <td>2018</td>
+      <td>422</td>
+      <td>66</td>
+      <td>1074</td>
+      <td>66</td>
+      <td>382</td>
+      <td>15.6</td>
+    </tr>
+    <tr>
+      <td>2019</td>
+      <td>367</td>
+      <td>63</td>
+      <td>940</td>
+      <td>64</td>
+      <td>330</td>
+      <td>17.4</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>270</td>
+      <td>40</td>
+      <td>640</td>
+      <td>40</td>
+      <td>246</td>
+      <td>14.8</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>270</td>
+      <td>58</td>
+      <td>656</td>
+      <td>60</td>
+      <td>241</td>
+      <td>22.2</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>295</td>
+      <td>48</td>
+      <td>730</td>
+      <td>50</td>
+      <td>264</td>
+      <td>16.9</td>
+    </tr>
+    <tr>
+      <td>2023</td>
+      <td>334</td>
+      <td>43</td>
+      <td>770</td>
+      <td>45</td>
+      <td>301</td>
+      <td>13.5</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>296</td>
+      <td>46</td>
+      <td>725</td>
+      <td>50</td>
+      <td>266</td>
+      <td>16.9</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>254</td>
+      <td>34</td>
+      <td>616</td>
+      <td>40</td>
+      <td>232</td>
+      <td>15.7</td>
+    </tr>
+  </tbody>
+</table>
+<h2>4. Who is being killed</h2>
+<p>This is a person-level question, so it is answered from the person rows. The rate below is the share of people involved, in that role, who died.</p>
+<figure><img src="../assets/road_user_fatality.png"><figcaption>Fatality rate by road user.</figcaption></figure>
+<p>A pedestrian involved in a KSI collision dies 8 times as often as a driver involved in one (16.5% against 2.1%). Pedestrians are 601 of the 1,094 people killed in the whole extract — 55% of deaths — while making up 18% of the people involved.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>road_user</th>
+      <th>people_involved</th>
+      <th>killed</th>
+      <th>seriously_injured</th>
+      <th>fatality_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pedestrian</td>
+      <td>3645</td>
+      <td>601</td>
+      <td>2834</td>
+      <td>0.1649</td>
+    </tr>
+    <tr>
+      <td>motorcyclist</td>
+      <td>917</td>
+      <td>118</td>
+      <td>730</td>
+      <td>0.1287</td>
+    </tr>
+    <tr>
+      <td>cyclist</td>
+      <td>935</td>
+      <td>55</td>
+      <td>835</td>
+      <td>0.0588</td>
+    </tr>
+    <tr>
+      <td>passenger</td>
+      <td>3172</td>
+      <td>115</td>
+      <td>855</td>
+      <td>0.0363</td>
+    </tr>
+    <tr>
+      <td>driver</td>
+      <td>9878</td>
+      <td>203</td>
+      <td>1811</td>
+      <td>0.0206</td>
+    </tr>
+    <tr>
+      <td>owner</td>
+      <td>1828</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <td>other</td>
+      <td>276</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.0000</td>
+    </tr>
+  </tbody>
+</table>
+<p>The `owner` row is a data artefact rather than a finding: it records the registered owner of a vehicle, who is frequently not present, which is why the category shows zero injuries of any kind. It is left in the table so the totals reconcile.</p>
+<h2>5. When and where</h2>
+<figure><img src="../assets/hour_of_day.png"><figcaption>KSI collisions by hour of day.</figcaption></figure>
+<figure><img src="../assets/neighbourhoods.png"><figcaption>The 15 neighbourhoods with the most KSI collisions.</figcaption></figure>
+<p>The neighbourhood ranking is deliberately reported as counts and not as a risk rate. A rate needs a denominator this file does not contain — resident population, or better, vehicle and pedestrian kilometres travelled through the area. Dividing by neither produces a ranking that largely reflects how busy a place is, which is worth knowing but is not the same as how dangerous it is. Treating this list as a danger ranking would be the second-biggest error available in this dataset, after the one in section 1.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>neighbourhood</th>
+      <th>ksi_collisions</th>
+      <th>fatal_collisions</th>
+      <th>fatal_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>West Humber-Clairville</td>
+      <td>234</td>
+      <td>37</td>
+      <td>0.1581</td>
+    </tr>
+    <tr>
+      <td>South Riverdale</td>
+      <td>150</td>
+      <td>13</td>
+      <td>0.0867</td>
+    </tr>
+    <tr>
+      <td>Yonge-Bay Corridor</td>
+      <td>136</td>
+      <td>9</td>
+      <td>0.0662</td>
+    </tr>
+    <tr>
+      <td>Wexford/Maryvale</td>
+      <td>131</td>
+      <td>28</td>
+      <td>0.2137</td>
+    </tr>
+    <tr>
+      <td>St Lawrence-East Bayfront-The Islands</td>
+      <td>120</td>
+      <td>15</td>
+      <td>0.1250</td>
+    </tr>
+    <tr>
+      <td>Moss Park</td>
+      <td>116</td>
+      <td>14</td>
+      <td>0.1207</td>
+    </tr>
+    <tr>
+      <td>South Parkdale</td>
+      <td>114</td>
+      <td>26</td>
+      <td>0.2281</td>
+    </tr>
+    <tr>
+      <td>Kensington-Chinatown</td>
+      <td>112</td>
+      <td>14</td>
+      <td>0.1250</td>
+    </tr>
+    <tr>
+      <td>Clairlea-Birchmount</td>
+      <td>106</td>
+      <td>21</td>
+      <td>0.1981</td>
+    </tr>
+    <tr>
+      <td>Annex</td>
+      <td>105</td>
+      <td>9</td>
+      <td>0.0857</td>
+    </tr>
+    <tr>
+      <td>Etobicoke City Centre</td>
+      <td>100</td>
+      <td>17</td>
+      <td>0.1700</td>
+    </tr>
+    <tr>
+      <td>York University Heights</td>
+      <td>99</td>
+      <td>15</td>
+      <td>0.1515</td>
+    </tr>
+    <tr>
+      <td>Wellington Place</td>
+      <td>98</td>
+      <td>5</td>
+      <td>0.0510</td>
+    </tr>
+    <tr>
+      <td>Milliken</td>
+      <td>97</td>
+      <td>15</td>
+      <td>0.1546</td>
+    </tr>
+    <tr>
+      <td>Downtown Yonge East</td>
+      <td>88</td>
+      <td>7</td>
+      <td>0.0795</td>
+    </tr>
+  </tbody>
+</table>
+<h2>6. Circumstances</h2>
+<p>Each flag is a collision-level attribute, so these are collision counts. The final column compares the fatal share of flagged collisions against the fatal share of all KSI collisions.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>flag</th>
+      <th>collisions</th>
+      <th>share_of_collisions</th>
+      <th>fatal_share</th>
+      <th>vs_baseline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pedestrian</td>
+      <td>3386</td>
+      <td>0.4467</td>
+      <td>0.1754</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <td>aggressive</td>
+      <td>3157</td>
+      <td>0.4165</td>
+      <td>0.1232</td>
+      <td>0.88</td>
+    </tr>
+    <tr>
+      <td>distracted</td>
+      <td>2242</td>
+      <td>0.2958</td>
+      <td>0.1178</td>
+      <td>0.84</td>
+    </tr>
+    <tr>
+      <td>older_adult</td>
+      <td>2164</td>
+      <td>0.2855</td>
+      <td>0.2033</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <td>school_child</td>
+      <td>1091</td>
+      <td>0.1439</td>
+      <td>0.1219</td>
+      <td>0.87</td>
+    </tr>
+    <tr>
+      <td>heavy_truck</td>
+      <td>928</td>
+      <td>0.1224</td>
+      <td>0.2414</td>
+      <td>1.72</td>
+    </tr>
+    <tr>
+      <td>cyclist</td>
+      <td>920</td>
+      <td>0.1214</td>
+      <td>0.0587</td>
+      <td>0.42</td>
+    </tr>
+    <tr>
+      <td>motorcyclist</td>
+      <td>856</td>
+      <td>0.1129</td>
+      <td>0.1367</td>
+      <td>0.98</td>
+    </tr>
+    <tr>
+      <td>red_light</td>
+      <td>472</td>
+      <td>0.0623</td>
+      <td>0.1229</td>
+      <td>0.88</td>
+    </tr>
+  </tbody>
+</table>
+<p>These are associations in a file that only contains collisions serious enough to be recorded. Every rate here is conditional on a KSI collision having already happened, so none of them is the risk of anything. A flag with a high fatal share tells you which collisions turn out worst once they occur; it does not tell you what causes them or how often they occur.</p>
+<h2>7. What this analysis cannot tell you</h2>
+<ul><li>There is no exposure denominator. Without population, traffic volume or distance travelled, no count here can become a risk rate, and none is presented as one.</li><li>The file contains only collisions where someone was killed or seriously injured. It cannot say anything about collisions in general, or about how often a given circumstance leads to a collision.</li><li>Serious injury is a reported judgement and its threshold may have shifted over twenty years. This directly affects the section 3 trend.</li><li>The circumstance flags are assigned by the reporting officer. They record what was recorded, not what happened.</li><li>The extract is refreshed daily and figures move as historical records are amended. Everything here was computed from the snapshot identified in section 8.</li><li>Association is not cause. Nothing in this report supports a causal claim, and none is made.</li></ul>
+<h2>8. Reproducing this</h2>
+<p>The extract is refreshed daily, so the exact copy behind these numbers is recorded rather than described. Rerun `python run.py` against the current file and compare the snapshot to see precisely what changed.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>field</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>package</td>
+      <td>motor-vehicle-collisions-involving-killed-or-seriously-injured-persons</td>
+    </tr>
+    <tr>
+      <td>retrieved_utc</td>
+      <td>2026-08-13T04:22:19Z</td>
+    </tr>
+    <tr>
+      <td>sha256</td>
+      <td>9ba38a83e1137f17e9e18affb1ead0cdd51826d9d4af495a7a37ddc67bf11f08</td>
+    </tr>
+    <tr>
+      <td>person_rows</td>
+      <td>20670</td>
+    </tr>
+    <tr>
+      <td>collisions</td>
+      <td>7580</td>
+    </tr>
+    <tr>
+      <td>columns</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>earliest_collision</td>
+      <td>2006-01-01</td>
+    </tr>
+    <tr>
+      <td>latest_collision</td>
+      <td>2026-07-31</td>
+    </tr>
+  </tbody>
+</table>
+<p>Source: City of Toronto Open Data Portal, Motor Vehicle Collisions Involving Killed or Seriously Injured Persons. Retrieved over the public CKAN API with no key or account. The data is published by Toronto Police Service and covers the City of Toronto only.</p>
+</body></html>

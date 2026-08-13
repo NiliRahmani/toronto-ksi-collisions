@@ -1,0 +1,28 @@
+# Source: City of Toronto Open Data, refreshed daily.
+source:
+  portal: "https://ckan0.cf.opendata.inter.prod-toronto.ca"
+  package: "motor-vehicle-collisions-involving-killed-or-seriously-injured-persons"
+  # The WGS84 CSV. Picked over the projected copy because the coordinates are
+  # already in the degrees that any mapping tool expects.
+  resource_suffix: "4326.csv"
+  cache: "data/ksi_raw.csv"
+
+grain:
+  # One row is one person involved in one collision. These are the keys that
+  # say so, and analysis.py refuses to aggregate without choosing one.
+  collision_key: "collision_id"
+  person_keys: ["collision_id", "veh_no", "per_no"]
+
+analysis:
+  # 2006 is the first full year in the extract. The final year is partial, so
+  # it is excluded from every trend and named in the report rather than
+  # quietly dropped.
+  first_full_year: 2006
+  top_neighbourhoods: 15
+  # Fewer collisions than this in a group and the rate is too noisy to publish.
+  min_group_size: 30
+
+report:
+  title: "Toronto Killed or Seriously Injured Collisions"
+  subtitle: "What the data says once you know what a row is"
+  author: "Niloufar Rahmani"

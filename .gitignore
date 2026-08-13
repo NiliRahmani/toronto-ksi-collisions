@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+.env
+*.key
+*.pem
+
+# The raw extract is redownloaded by run.py. data/snapshot.json records the
+# row counts and checksum of the copy the committed results were built from.
+data/*.csv
+data/*.zip

@@ -1,0 +1,17 @@
+{
+  "first_year": 2006,
+  "last_full_year": 2025,
+  "collisions_total": 7580,
+  "people_total": 20670,
+  "people_killed_total": 1094,
+  "fatal_collisions_total": 1061,
+  "ksi_collisions_first_year": 481,
+  "ksi_collisions_last_year": 254,
+  "ksi_change_pct": -47.2,
+  "fatal_collisions_first_year": 57,
+  "fatal_collisions_last_year": 34,
+  "pedestrian_fatality_rate": 0.1649,
+  "driver_fatality_rate": 0.0206,
+  "pedestrian_vs_driver": 8.0,
+  "pedestrians_killed": 601
+}
