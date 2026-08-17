@@ -33,7 +33,7 @@ h2 { break-after: avoid; }
 table, figure { break-inside: avoid; }
 </style></head><body>
 <h1>Toronto Killed or Seriously Injured Collisions</h1>
-<p class="meta">What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-08-13  |  20,670 person records across 7,580 collisions</p>
+<p class="meta">What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-08-17  |  20,682 person records across 7,584 collisions</p>
 <h2>1. What one row is</h2>
 <div class="callout"><p>The file has one row per person involved in a collision, not one row per collision. The average collision involves 2.7 people. Counting rows therefore overstates every collision-level figure by roughly that factor, and the error is invisible — the numbers look plausible.</p></div>
 <p>This was not assumed from the column names. Every column was tested: for each one, does its value ever differ between two people in the same collision? 30 columns never vary within a collision, which makes them facts about the collision copied onto each person row. 16 columns do vary, which makes them facts about the person. Four are identifiers.</p>
@@ -53,9 +53,9 @@ table, figure { break-inside: avoid; }
     <tr>
       <td>How many KSI collisions are in this file?</td>
       <td>count of rows</td>
-      <td>20670</td>
+      <td>20682</td>
       <td>count of distinct collision_id</td>
-      <td>7580</td>
+      <td>7584</td>
       <td>2.73</td>
     </tr>
     <tr>
@@ -77,63 +77,63 @@ table, figure { break-inside: avoid; }
     <tr>
       <td>How many people were seriously injured?</td>
       <td>count of rows where acclass = 'Non-Fatal Injury'</td>
-      <td>17724</td>
+      <td>17736</td>
       <td>count of rows where injury = 'Major'</td>
-      <td>7083</td>
+      <td>7089</td>
       <td>2.50</td>
     </tr>
     <tr>
       <td>How many collisions involving a pedestrian?</td>
       <td>count of rows where pedestrian is true</td>
-      <td>8436</td>
+      <td>8441</td>
       <td>distinct collision_id where pedestrian is true</td>
-      <td>3386</td>
+      <td>3388</td>
       <td>2.49</td>
     </tr>
     <tr>
       <td>How many collisions involving a cyclist?</td>
       <td>count of rows where cyclist is true</td>
-      <td>2150</td>
+      <td>2153</td>
       <td>distinct collision_id where cyclist is true</td>
-      <td>920</td>
+      <td>921</td>
       <td>2.34</td>
     </tr>
     <tr>
       <td>How many collisions flagged aggressive driving?</td>
       <td>count of rows where aggressive is true</td>
-      <td>9235</td>
+      <td>9242</td>
       <td>distinct collision_id where aggressive is true</td>
-      <td>3157</td>
+      <td>3159</td>
       <td>2.93</td>
     </tr>
     <tr>
       <td>How many collisions flagged distracted driving?</td>
       <td>count of rows where distracted is true</td>
-      <td>6221</td>
+      <td>6223</td>
       <td>distinct collision_id where distracted is true</td>
-      <td>2242</td>
+      <td>2243</td>
       <td>2.77</td>
     </tr>
     <tr>
       <td>How many collisions flagged red-light running?</td>
       <td>count of rows where red_light is true</td>
-      <td>1689</td>
+      <td>1693</td>
       <td>distinct collision_id where red_light is true</td>
-      <td>472</td>
+      <td>473</td>
       <td>3.58</td>
     </tr>
     <tr>
       <td>How many collisions involving a heavy truck?</td>
       <td>count of rows where heavy_truck is true</td>
-      <td>2788</td>
+      <td>2790</td>
       <td>distinct collision_id where heavy_truck is true</td>
-      <td>928</td>
+      <td>929</td>
       <td>3.00</td>
     </tr>
     <tr>
       <td>How many collisions flagged school child?</td>
       <td>count of rows where school_child is true</td>
-      <td>4061</td>
+      <td>4062</td>
       <td>distinct collision_id where school_child is true</td>
       <td>1091</td>
       <td>3.72</td>
@@ -141,15 +141,15 @@ table, figure { break-inside: avoid; }
     <tr>
       <td>How many collisions flagged older adult?</td>
       <td>count of rows where older_adult is true</td>
-      <td>6000</td>
+      <td>6005</td>
       <td>distinct collision_id where older_adult is true</td>
-      <td>2164</td>
+      <td>2165</td>
       <td>2.77</td>
     </tr>
   </tbody>
 </table>
 <p>The two correct answers in the third row are different from each other and both are right: 1,061 collisions were fatal, and 1,094 people died in them. The gap is the collisions that killed more than one person, plus 6 records discussed in section 2. Which number belongs in a headline depends on whether the sentence is about crashes or about people, and that is a decision to make deliberately rather than by accident of query.</p>
-<p>The same trap sits under the word pedestrian. Collisions involving a pedestrian: 3,386. People present in those collisions: 8,436. Pedestrians actually involved: 3,645. Pedestrians killed: 601. All four are legitimate answers to questions that sound identical when spoken aloud.</p>
+<p>The same trap sits under the word pedestrian. Collisions involving a pedestrian: 3,388. People present in those collisions: 8,441. Pedestrians actually involved: 3,648. Pedestrians killed: 601. All four are legitimate answers to questions that sound identical when spoken aloud.</p>
 <h2>2. Data quality</h2>
 <p>Rules were run against the extract exactly as published. The dataset is in good condition; the failures below are small, and they are recorded because a consumer needs to know about them before quoting a number, not as a criticism of the publisher.</p>
 <table class="dataframe">
@@ -192,7 +192,7 @@ table, figure { break-inside: avoid; }
       <td>Completeness</td>
       <td>neighbourhood is populated</td>
       <td>151</td>
-      <td>0.00731</td>
+      <td>0.00730</td>
       <td>Fail</td>
       <td>Affects the neighbourhood ranking, which is built on this column.</td>
     </tr>
@@ -250,7 +250,7 @@ table, figure { break-inside: avoid; }
 <h2>3. Twenty years of KSI collisions</h2>
 <p>2006 to 2025. The final year in the extract is partial and is excluded from every trend in this report rather than plotted as a collapse.</p>
 <figure><img src="../assets/trend.png"><figcaption>KSI collisions per year, and deaths per 100 KSI collisions.</figcaption></figure>
-<div class="callout"><p>KSI collisions fell 47% between 2006 and 2025, from 481 to 254. Deaths per 100 KSI collisions moved the other way, from 11.9 to 15.7. Fewer collisions reach this threshold than twenty years ago, and a larger share of the ones that do are fatal.</p></div>
+<div class="callout"><p>KSI collisions fell 47% between 2006 and 2025, from 481 to 255. Deaths per 100 KSI collisions moved the other way, from 11.9 to 15.7. Fewer collisions reach this threshold than twenty years ago, and a larger share of the ones that do are fatal.</p></div>
 <p>Two readings fit that pattern and this data cannot separate them. Either the collisions being prevented are disproportionately the survivable ones, or the reporting threshold for a serious injury has tightened over twenty years so that fewer non-fatal cases enter the file. A fatality is hard to misclassify; a serious injury is a judgement. Anyone using this trend to argue that roads have become more lethal per collision needs to rule the second explanation out first, and nothing in this extract does that.</p>
 <table class="dataframe">
   <thead>
@@ -438,11 +438,11 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>2025</td>
-      <td>254</td>
+      <td>255</td>
       <td>34</td>
-      <td>616</td>
+      <td>618</td>
       <td>40</td>
-      <td>232</td>
+      <td>233</td>
       <td>15.7</td>
     </tr>
   </tbody>
@@ -464,10 +464,10 @@ table, figure { break-inside: avoid; }
   <tbody>
     <tr>
       <td>pedestrian</td>
-      <td>3645</td>
+      <td>3648</td>
       <td>601</td>
-      <td>2834</td>
-      <td>0.1649</td>
+      <td>2836</td>
+      <td>0.1647</td>
     </tr>
     <tr>
       <td>motorcyclist</td>
@@ -478,24 +478,24 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>cyclist</td>
-      <td>935</td>
+      <td>936</td>
       <td>55</td>
-      <td>835</td>
+      <td>836</td>
       <td>0.0588</td>
     </tr>
     <tr>
       <td>passenger</td>
-      <td>3172</td>
+      <td>3175</td>
       <td>115</td>
-      <td>855</td>
-      <td>0.0363</td>
+      <td>857</td>
+      <td>0.0362</td>
     </tr>
     <tr>
       <td>driver</td>
-      <td>9878</td>
+      <td>9883</td>
       <td>203</td>
-      <td>1811</td>
-      <td>0.0206</td>
+      <td>1812</td>
+      <td>0.0205</td>
     </tr>
     <tr>
       <td>owner</td>
@@ -530,9 +530,9 @@ table, figure { break-inside: avoid; }
   <tbody>
     <tr>
       <td>West Humber-Clairville</td>
-      <td>234</td>
+      <td>235</td>
       <td>37</td>
-      <td>0.1581</td>
+      <td>0.1574</td>
     </tr>
     <tr>
       <td>South Riverdale</td>
@@ -635,30 +635,30 @@ table, figure { break-inside: avoid; }
   <tbody>
     <tr>
       <td>pedestrian</td>
-      <td>3386</td>
+      <td>3388</td>
       <td>0.4467</td>
-      <td>0.1754</td>
+      <td>0.1753</td>
       <td>1.25</td>
     </tr>
     <tr>
       <td>aggressive</td>
-      <td>3157</td>
+      <td>3159</td>
       <td>0.4165</td>
-      <td>0.1232</td>
+      <td>0.1231</td>
       <td>0.88</td>
     </tr>
     <tr>
       <td>distracted</td>
-      <td>2242</td>
+      <td>2243</td>
       <td>0.2958</td>
-      <td>0.1178</td>
+      <td>0.1177</td>
       <td>0.84</td>
     </tr>
     <tr>
       <td>older_adult</td>
-      <td>2164</td>
+      <td>2165</td>
       <td>0.2855</td>
-      <td>0.2033</td>
+      <td>0.2032</td>
       <td>1.45</td>
     </tr>
     <tr>
@@ -670,16 +670,16 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>heavy_truck</td>
-      <td>928</td>
-      <td>0.1224</td>
-      <td>0.2414</td>
+      <td>929</td>
+      <td>0.1225</td>
+      <td>0.2411</td>
       <td>1.72</td>
     </tr>
     <tr>
       <td>cyclist</td>
-      <td>920</td>
+      <td>921</td>
       <td>0.1214</td>
-      <td>0.0587</td>
+      <td>0.0586</td>
       <td>0.42</td>
     </tr>
     <tr>
@@ -691,9 +691,9 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>red_light</td>
-      <td>472</td>
-      <td>0.0623</td>
-      <td>0.1229</td>
+      <td>473</td>
+      <td>0.0624</td>
+      <td>0.1226</td>
       <td>0.88</td>
     </tr>
   </tbody>
@@ -717,19 +717,19 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>retrieved_utc</td>
-      <td>2026-08-13T04:22:19Z</td>
+      <td>2026-08-17T07:16:46Z</td>
     </tr>
     <tr>
       <td>sha256</td>
-      <td>9ba38a83e1137f17e9e18affb1ead0cdd51826d9d4af495a7a37ddc67bf11f08</td>
+      <td>eadeb1e87b694ea1051f9690d12fb715a704389c7de67b8fce27df83bd3f8ef6</td>
     </tr>
     <tr>
       <td>person_rows</td>
-      <td>20670</td>
+      <td>20682</td>
     </tr>
     <tr>
       <td>collisions</td>
-      <td>7580</td>
+      <td>7584</td>
     </tr>
     <tr>
       <td>columns</td>
@@ -741,7 +741,7 @@ table, figure { break-inside: avoid; }
     </tr>
     <tr>
       <td>latest_collision</td>
-      <td>2026-07-31</td>
+      <td>2026-08-02</td>
     </tr>
   </tbody>
 </table>

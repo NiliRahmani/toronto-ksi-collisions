@@ -2,7 +2,7 @@ dimension,rule,records_failed,share_failed,outcome,impact
 Uniqueness,"one row per (collision, vehicle, person)",0,0.0,Pass,Confirms the stated grain. Nothing downstream is safe without it.
 Completeness,acclass is populated,1,5e-05,Fail,A row with no severity class cannot be counted as fatal or non-fatal.
 Completeness,coordinates are populated,3,0.00015,Fail,Rows without coordinates drop silently out of any map or spatial join.
-Completeness,neighbourhood is populated,151,0.00731,Fail,"Affects the neighbourhood ranking, which is built on this column."
+Completeness,neighbourhood is populated,151,0.0073,Fail,"Affects the neighbourhood ranking, which is built on this column."
 Validity,coordinates fall inside Toronto,0,0.0,Pass,"No coordinate lands outside the city, so the geography can be trusted."
 Validity,acclass uses a known severity code,0,0.0,Pass,An unrecognised code would fall through every severity filter.
 Validity,injury uses a known severity code,0,0.0,Pass,Same risk on the person-level severity column.
