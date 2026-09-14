@@ -1,6 +1,6 @@
 light,collisions,fatal,share_of_collisions,fatal_share,condition_type,rdsfcond,road_class
-Daylight,4289,521,0.5661,0.1215,light,,
-Dark with Artificial Lighting,1574,242,0.2077,0.1537,light,,
+Daylight,4290,521,0.566,0.1214,light,,
+Dark with Artificial Lighting,1575,242,0.2078,0.1537,light,,
 Dark,1314,222,0.1734,0.1689,light,,
 Dusk with Artificial Lighting,115,16,0.0152,0.1391,light,,
 Dusk,99,15,0.0131,0.1515,light,,
@@ -8,7 +8,7 @@ Daylight with Artificial Lighting,84,9,0.0111,0.1071,light,,
 Dawn with Artificial Lighting,52,10,0.0069,0.1923,light,,
 Dawn,48,6,0.0063,0.125,light,,
 Other,2,1,0.0003,,light,,
-,6079,813,0.8036,0.1337,rdsfcond,Dry,
+,6081,813,0.8036,0.1337,rdsfcond,Dry,
 ,1274,179,0.1684,0.1405,rdsfcond,Wet,
 ,64,5,0.0085,0.0781,rdsfcond,Loose Snow,
 ,57,20,0.0075,0.3509,rdsfcond,Other,
@@ -17,9 +17,9 @@ Other,2,1,0.0003,,light,,
 ,21,6,0.0028,,rdsfcond,Packed Snow,
 ,6,0,0.0008,,rdsfcond,Loose Sand or Gravel,
 ,1,0,0.0001,,rdsfcond,Spilled Liquid,
-,5081,727,0.6973,0.1431,road_class,,Major Arterial
+,5081,727,0.6972,0.1431,road_class,,Major Arterial
 ,1226,151,0.1682,0.1232,road_class,,Minor Arterial
-,459,56,0.063,0.122,road_class,,Collector
+,460,56,0.0631,0.1217,road_class,,Collector
 ,392,56,0.0538,0.1429,road_class,,Local
 ,76,18,0.0104,0.2368,road_class,,Expressway
 ,20,4,0.0027,,road_class,,Expressway Ramp
