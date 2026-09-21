@@ -1,6 +1,6 @@
 # Toronto Killed or Seriously Injured Collisions
 
-*What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-09-14  |  20,723 person records across 7,598 collisions*
+*What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-09-21  |  20,723 person records across 7,598 collisions*
 
 ## 1. What one row is
 
@@ -171,7 +171,7 @@ The extract is refreshed daily, so the exact copy behind these numbers is record
 | field | value |
 |---|---|
 | package | motor-vehicle-collisions-involving-killed-or-seriously-injured-persons |
-| retrieved_utc | 2026-09-14T12:47:07Z |
+| retrieved_utc | 2026-09-21T12:48:24Z |
 | sha256 | d319d43f2eb333cc0638473bb4c496b6e15f8fdc878318dcd779d7201a76b3bc |
 | person_rows | 20723 |
 | collisions | 7598 |
