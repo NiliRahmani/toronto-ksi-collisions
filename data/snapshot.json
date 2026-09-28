@@ -1,10 +1,10 @@
 {
   "package": "motor-vehicle-collisions-involving-killed-or-seriously-injured-persons",
-  "retrieved_utc": "2026-09-21T12:48:24Z",
-  "sha256": "d319d43f2eb333cc0638473bb4c496b6e15f8fdc878318dcd779d7201a76b3bc",
-  "person_rows": 20723,
-  "collisions": 7598,
+  "retrieved_utc": "2026-09-28T13:54:46Z",
+  "sha256": "ba9b378ec61877911a9a966a4a7ef7f62c9ace028583dab5160a8540025aff86",
+  "person_rows": 20764,
+  "collisions": 7616,
   "columns": 50,
   "earliest_collision": "2006-01-01",
-  "latest_collision": "2026-08-29"
+  "latest_collision": "2026-09-15"
 }
