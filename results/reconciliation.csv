@@ -1,13 +1,13 @@
 question,naive_method,naive_answer,correct_method,correct_answer,overstated_by
-How many KSI collisions are in this file?,count of rows,20764,count of distinct collision_id,7616,2.73
+How many KSI collisions are in this file?,count of rows,20771,count of distinct collision_id,7620,2.73
 How many collisions were fatal?,count of rows where acclass = 'Fatal Injury',2940,distinct collision_id where acclass = 'Fatal Injury',1068,2.75
 How many people were killed?,count of rows where acclass = 'Fatal Injury',2940,count of rows where injury = 'Fatal',1104,2.66
-How many people were seriously injured?,count of rows where acclass = 'Non-Fatal Injury',17805,count of rows where injury = 'Major',7115,2.5
-How many collisions involving a pedestrian?,count of rows where pedestrian is true,8466,distinct collision_id where pedestrian is true,3401,2.49
-How many collisions involving a cyclist?,count of rows where cyclist is true,2164,distinct collision_id where cyclist is true,925,2.34
-How many collisions flagged aggressive driving?,count of rows where aggressive is true,9277,distinct collision_id where aggressive is true,3172,2.92
+How many people were seriously injured?,count of rows where acclass = 'Non-Fatal Injury',17812,count of rows where injury = 'Major',7119,2.5
+How many collisions involving a pedestrian?,count of rows where pedestrian is true,8471,distinct collision_id where pedestrian is true,3404,2.49
+How many collisions involving a cyclist?,count of rows where cyclist is true,2166,distinct collision_id where cyclist is true,926,2.34
+How many collisions flagged aggressive driving?,count of rows where aggressive is true,9279,distinct collision_id where aggressive is true,3173,2.92
 How many collisions flagged distracted driving?,count of rows where distracted is true,6228,distinct collision_id where distracted is true,2244,2.78
 How many collisions flagged red-light running?,count of rows where red_light is true,1695,distinct collision_id where red_light is true,474,3.58
 How many collisions involving a heavy truck?,count of rows where heavy_truck is true,2799,distinct collision_id where heavy_truck is true,933,3.0
 How many collisions flagged school child?,count of rows where school_child is true,4084,distinct collision_id where school_child is true,1096,3.73
-How many collisions flagged older adult?,count of rows where older_adult is true,6028,distinct collision_id where older_adult is true,2174,2.77
+How many collisions flagged older adult?,count of rows where older_adult is true,6031,distinct collision_id where older_adult is true,2176,2.77
