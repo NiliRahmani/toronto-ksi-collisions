@@ -1,6 +1,6 @@
 # Toronto Killed or Seriously Injured Collisions
 
-*What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-10-19  |  20,809 person records across 7,638 collisions*
+*What the data says once you know what a row is  |  Niloufar Rahmani  |  Source: City of Toronto Open Data, retrieved 2026-11-02  |  20,882 person records across 7,673 collisions*
 
 ## 1. What one row is
 
@@ -12,22 +12,22 @@ The consequence is not academic. `acclass`, the severity of the collision, is on
 
 | question | naive method | naive answer | correct method | correct answer | overstated by |
 |---|---|---|---|---|---|
-| How many KSI collisions are in this file? | count of rows | 20809 | count of distinct collision_id | 7638 | 2.72 |
+| How many KSI collisions are in this file? | count of rows | 20882 | count of distinct collision_id | 7673 | 2.72 |
 | How many collisions were fatal? | count of rows where acclass = 'Fatal Injury' | 2950 | distinct collision_id where acclass = 'Fatal Injury' | 1073 | 2.75 |
 | How many people were killed? | count of rows where acclass = 'Fatal Injury' | 2950 | count of rows where injury = 'Fatal' | 1109 | 2.66 |
-| How many people were seriously injured? | count of rows where acclass = 'Non-Fatal Injury' | 17840 | count of rows where injury = 'Major' | 7134 | 2.5 |
-| How many collisions involving a pedestrian? | count of rows where pedestrian is true | 8488 | distinct collision_id where pedestrian is true | 3411 | 2.49 |
-| How many collisions involving a cyclist? | count of rows where cyclist is true | 2171 | distinct collision_id where cyclist is true | 928 | 2.34 |
-| How many collisions flagged aggressive driving? | count of rows where aggressive is true | 9296 | distinct collision_id where aggressive is true | 3180 | 2.92 |
-| How many collisions flagged distracted driving? | count of rows where distracted is true | 6232 | distinct collision_id where distracted is true | 2245 | 2.78 |
-| How many collisions flagged red-light running? | count of rows where red_light is true | 1697 | distinct collision_id where red_light is true | 475 | 3.57 |
-| How many collisions involving a heavy truck? | count of rows where heavy_truck is true | 2806 | distinct collision_id where heavy_truck is true | 936 | 3.0 |
-| How many collisions flagged school child? | count of rows where school_child is true | 4087 | distinct collision_id where school_child is true | 1097 | 3.73 |
-| How many collisions flagged older adult? | count of rows where older_adult is true | 6045 | distinct collision_id where older_adult is true | 2182 | 2.77 |
+| How many people were seriously injured? | count of rows where acclass = 'Non-Fatal Injury' | 17911 | count of rows where injury = 'Major' | 7171 | 2.5 |
+| How many collisions involving a pedestrian? | count of rows where pedestrian is true | 8511 | distinct collision_id where pedestrian is true | 3422 | 2.49 |
+| How many collisions involving a cyclist? | count of rows where cyclist is true | 2185 | distinct collision_id where cyclist is true | 935 | 2.34 |
+| How many collisions flagged aggressive driving? | count of rows where aggressive is true | 9319 | distinct collision_id where aggressive is true | 3189 | 2.92 |
+| How many collisions flagged distracted driving? | count of rows where distracted is true | 6241 | distinct collision_id where distracted is true | 2248 | 2.78 |
+| How many collisions flagged red-light running? | count of rows where red_light is true | 1700 | distinct collision_id where red_light is true | 476 | 3.57 |
+| How many collisions involving a heavy truck? | count of rows where heavy_truck is true | 2813 | distinct collision_id where heavy_truck is true | 939 | 3.0 |
+| How many collisions flagged school child? | count of rows where school_child is true | 4100 | distinct collision_id where school_child is true | 1102 | 3.72 |
+| How many collisions flagged older adult? | count of rows where older_adult is true | 6059 | distinct collision_id where older_adult is true | 2188 | 2.77 |
 
 The two correct answers in the third row are different from each other and both are right: 1,073 collisions were fatal, and 1,109 people died in them. The gap is the collisions that killed more than one person, plus 8 records discussed in section 2. Which number belongs in a headline depends on whether the sentence is about crashes or about people, and that is a decision to make deliberately rather than by accident of query.
 
-The same trap sits under the word pedestrian. Collisions involving a pedestrian: 3,411. People present in those collisions: 8,488. Pedestrians actually involved: 3,671. Pedestrians killed: 606. All four are legitimate answers to questions that sound identical when spoken aloud.
+The same trap sits under the word pedestrian. Collisions involving a pedestrian: 3,422. People present in those collisions: 8,511. Pedestrians actually involved: 3,682. Pedestrians killed: 606. All four are legitimate answers to questions that sound identical when spoken aloud.
 
 ## 2. Data quality
 
@@ -38,13 +38,13 @@ Rules were run against the extract exactly as published. The dataset is in good 
 | Uniqueness | one row per (collision, vehicle, person) | 0 | 0.0 | Pass | Confirms the stated grain. Nothing downstream is safe without it. |
 | Completeness | acclass is populated | 1 | 5e-05 | Fail | A row with no severity class cannot be counted as fatal or non-fatal. |
 | Completeness | coordinates are populated | 3 | 0.00014 | Fail | Rows without coordinates drop silently out of any map or spatial join. |
-| Completeness | neighbourhood is populated | 151 | 0.00726 | Fail | Affects the neighbourhood ranking, which is built on this column. |
+| Completeness | neighbourhood is populated | 151 | 0.00723 | Fail | Affects the neighbourhood ranking, which is built on this column. |
 | Validity | coordinates fall inside Toronto | 0 | 0.0 | Pass | No coordinate lands outside the city, so the geography can be trusted. |
-| Validity | acclass uses a known severity code | 0 | 0.0 | Pass | An unrecognised code would fall through every severity filter. |
+| Validity | acclass uses a known severity code | 2 | 0.0001 | Fail | An unrecognised code would fall through every severity filter. |
 | Validity | injury uses a known severity code | 0 | 0.0 | Pass | Same risk on the person-level severity column. |
 | Consistency | a fatal injury sits in a collision classed fatal | 8 | 0.00038 | Fail | The two severity columns disagree, so the death count and the fatal collision count cannot both be right on these rows. |
 | Consistency | a collision classed fatal records at least one death | 0 | 0.0 | Pass | Confirms the fatal classification is supported by a person record. |
-| Scope | every record meets the killed-or-seriously-injured criterion | 18 | 0.00087 | Fail | Records classed property damage only do not belong in a KSI extract and will inflate any unfiltered collision count. |
+| Scope | every record meets the killed-or-seriously-injured criterion | 18 | 0.00086 | Fail | Records classed property damage only do not belong in a KSI extract and will inflate any unfiltered collision count. |
 
 - 8 person records are marked injury = 'Fatal' while their collision is not classed 'Fatal Injury'. This is why the death count (1 per person record) and the fatal collision count do not reconcile to each other exactly, and the difference is precisely these rows.
 - 18 person records across 8 collisions are classed 'Property Damage Only' in an extract published as killed-or-seriously-injured. They are kept in the figures here and flagged rather than dropped, because removing records from a public dataset without saying so is how two analysts end up with different totals.
@@ -97,13 +97,13 @@ A pedestrian involved in a KSI collision dies 8 times as often as a driver invol
 
 | road user | people involved | killed | seriously injured | fatality rate |
 |---|---|---|---|---|
-| pedestrian | 3671 | 606 | 2854 | 0.1651 |
-| motorcyclist | 926 | 122 | 735 | 0.1317 |
-| cyclist | 943 | 55 | 842 | 0.0583 |
-| passenger | 3200 | 117 | 862 | 0.0366 |
-| driver | 9944 | 205 | 1823 | 0.0206 |
+| pedestrian | 3682 | 606 | 2865 | 0.1646 |
+| motorcyclist | 936 | 122 | 743 | 0.1303 |
+| cyclist | 950 | 55 | 849 | 0.0579 |
+| passenger | 3207 | 117 | 864 | 0.0365 |
+| driver | 9977 | 205 | 1828 | 0.0205 |
 | owner | 1828 | 0 | 0 | 0.0 |
-| other | 276 | 0 | 1 | 0.0 |
+| other | 278 | 0 | 2 | 0.0 |
 
 The `owner` row is a data artefact rather than a finding: it records the registered owner of a vehicle, who is frequently not present, which is why the category shows zero injuries of any kind. It is left in the table so the totals reconcile.
 
@@ -124,18 +124,18 @@ The neighbourhood ranking is deliberately reported as counts and not as a risk r
 | West Humber-Clairville | 237 | 37 | 0.1561 |
 | South Riverdale | 151 | 14 | 0.0927 |
 | Yonge-Bay Corridor | 136 | 9 | 0.0662 |
-| Wexford/Maryvale | 133 | 29 | 0.218 |
-| St Lawrence-East Bayfront-The Islands | 121 | 15 | 0.124 |
-| Moss Park | 119 | 14 | 0.1176 |
-| South Parkdale | 117 | 27 | 0.2308 |
+| Wexford/Maryvale | 135 | 29 | 0.2148 |
+| St Lawrence-East Bayfront-The Islands | 123 | 15 | 0.122 |
+| Moss Park | 121 | 14 | 0.1157 |
+| South Parkdale | 119 | 27 | 0.2269 |
 | Kensington-Chinatown | 112 | 14 | 0.125 |
 | Clairlea-Birchmount | 107 | 21 | 0.1963 |
 | Annex | 106 | 9 | 0.0849 |
+| Etobicoke City Centre | 103 | 17 | 0.165 |
 | York University Heights | 100 | 16 | 0.16 |
-| Etobicoke City Centre | 100 | 17 | 0.17 |
 | Milliken | 98 | 16 | 0.1633 |
-| Wellington Place | 97 | 5 | 0.0515 |
-| Downtown Yonge East | 88 | 7 | 0.0795 |
+| Wellington Place | 98 | 5 | 0.051 |
+| Downtown Yonge East | 90 | 7 | 0.0778 |
 
 ## 6. Circumstances
 
@@ -143,15 +143,15 @@ Each flag is a collision-level attribute, so these are collision counts. The fin
 
 | flag | collisions | share of collisions | fatal share | vs baseline |
 |---|---|---|---|---|
-| pedestrian | 3411 | 0.4466 | 0.175 | 1.25 |
-| aggressive | 3180 | 0.4163 | 0.1236 | 0.88 |
-| distracted | 2245 | 0.2939 | 0.1176 | 0.84 |
-| older_adult | 2182 | 0.2857 | 0.2026 | 1.44 |
-| school_child | 1097 | 0.1436 | 0.1212 | 0.86 |
-| heavy_truck | 936 | 0.1225 | 0.2404 | 1.71 |
-| cyclist | 928 | 0.1215 | 0.0582 | 0.41 |
-| motorcyclist | 865 | 0.1132 | 0.1399 | 1.0 |
-| red_light | 475 | 0.0622 | 0.1221 | 0.87 |
+| pedestrian | 3422 | 0.446 | 0.1745 | 1.25 |
+| aggressive | 3189 | 0.4156 | 0.1232 | 0.88 |
+| distracted | 2248 | 0.293 | 0.1174 | 0.84 |
+| older_adult | 2188 | 0.2852 | 0.202 | 1.44 |
+| school_child | 1102 | 0.1436 | 0.1207 | 0.86 |
+| heavy_truck | 939 | 0.1224 | 0.2396 | 1.71 |
+| cyclist | 935 | 0.1219 | 0.0578 | 0.41 |
+| motorcyclist | 874 | 0.1139 | 0.1384 | 0.99 |
+| red_light | 476 | 0.062 | 0.1218 | 0.87 |
 
 These are associations in a file that only contains collisions serious enough to be recorded. Every rate here is conditional on a KSI collision having already happened, so none of them is the risk of anything. A flag with a high fatal share tells you which collisions turn out worst once they occur; it does not tell you what causes them or how often they occur.
 
@@ -171,12 +171,12 @@ The extract is refreshed daily, so the exact copy behind these numbers is record
 | field | value |
 |---|---|
 | package | motor-vehicle-collisions-involving-killed-or-seriously-injured-persons |
-| retrieved_utc | 2026-10-19T13:14:47Z |
-| sha256 | ca99bbdf23b5bb0ee5ce0a9d9828b6df4a6474fe7901e21622f8d5c6f79b7a84 |
-| person_rows | 20809 |
-| collisions | 7638 |
+| retrieved_utc | 2026-11-02T15:51:40Z |
+| sha256 | 87feb1dfa7adc46170cca6ed801fa9ec8fe7ede7e62610bfd5c21541388e8761 |
+| person_rows | 20882 |
+| collisions | 7673 |
 | columns | 50 |
 | earliest_collision | 2006-01-01 |
-| latest_collision | 2026-10-11 |
+| latest_collision | 2026-10-22 |
 
 Source: City of Toronto Open Data Portal, Motor Vehicle Collisions Involving Killed or Seriously Injured Persons. Retrieved over the public CKAN API with no key or account. The data is published by Toronto Police Service and covers the City of Toronto only.
