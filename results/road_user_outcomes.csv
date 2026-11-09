@@ -1,8 +1,8 @@
 road_user,people_involved,killed,seriously_injured,fatality_rate
-pedestrian,3682,606,2865,0.1646
-motorcyclist,936,122,743,0.1303
+pedestrian,3684,606,2867,0.1645
+motorcyclist,938,122,745,0.1301
 cyclist,950,55,849,0.0579
 passenger,3207,117,864,0.0365
-driver,9977,205,1828,0.0205
+driver,9982,205,1829,0.0205
 owner,1828,0,0,0.0
 other,278,0,2,0.0

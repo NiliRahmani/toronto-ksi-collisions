@@ -1,13 +1,13 @@
 question,naive_method,naive_answer,correct_method,correct_answer,overstated_by
-How many KSI collisions are in this file?,count of rows,20882,count of distinct collision_id,7673,2.72
+How many KSI collisions are in this file?,count of rows,20891,count of distinct collision_id,7677,2.72
 How many collisions were fatal?,count of rows where acclass = 'Fatal Injury',2950,distinct collision_id where acclass = 'Fatal Injury',1073,2.75
 How many people were killed?,count of rows where acclass = 'Fatal Injury',2950,count of rows where injury = 'Fatal',1109,2.66
-How many people were seriously injured?,count of rows where acclass = 'Non-Fatal Injury',17911,count of rows where injury = 'Major',7171,2.5
-How many collisions involving a pedestrian?,count of rows where pedestrian is true,8511,distinct collision_id where pedestrian is true,3422,2.49
+How many people were seriously injured?,count of rows where acclass = 'Non-Fatal Injury',17920,count of rows where injury = 'Major',7176,2.5
+How many collisions involving a pedestrian?,count of rows where pedestrian is true,8515,distinct collision_id where pedestrian is true,3424,2.49
 How many collisions involving a cyclist?,count of rows where cyclist is true,2185,distinct collision_id where cyclist is true,935,2.34
-How many collisions flagged aggressive driving?,count of rows where aggressive is true,9319,distinct collision_id where aggressive is true,3189,2.92
-How many collisions flagged distracted driving?,count of rows where distracted is true,6241,distinct collision_id where distracted is true,2248,2.78
-How many collisions flagged red-light running?,count of rows where red_light is true,1700,distinct collision_id where red_light is true,476,3.57
+How many collisions flagged aggressive driving?,count of rows where aggressive is true,9326,distinct collision_id where aggressive is true,3192,2.92
+How many collisions flagged distracted driving?,count of rows where distracted is true,6243,distinct collision_id where distracted is true,2249,2.78
+How many collisions flagged red-light running?,count of rows where red_light is true,1703,distinct collision_id where red_light is true,477,3.57
 How many collisions involving a heavy truck?,count of rows where heavy_truck is true,2813,distinct collision_id where heavy_truck is true,939,3.0
 How many collisions flagged school child?,count of rows where school_child is true,4100,distinct collision_id where school_child is true,1102,3.72
-How many collisions flagged older adult?,count of rows where older_adult is true,6059,distinct collision_id where older_adult is true,2188,2.77
+How many collisions flagged older adult?,count of rows where older_adult is true,6064,distinct collision_id where older_adult is true,2190,2.77
