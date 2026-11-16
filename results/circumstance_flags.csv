@@ -1,10 +1,10 @@
 flag,collisions,share_of_collisions,fatal_share,vs_baseline
-pedestrian,3424,0.446,0.1744,1.25
-aggressive,3192,0.4158,0.1231,0.88
-distracted,2249,0.293,0.1174,0.84
-older_adult,2190,0.2853,0.2018,1.44
-school_child,1102,0.1435,0.1207,0.86
-heavy_truck,939,0.1223,0.2396,1.71
-cyclist,935,0.1218,0.0578,0.41
+pedestrian,3424,0.4459,0.1744,1.25
+aggressive,3193,0.4159,0.1231,0.88
+distracted,2248,0.2928,0.1174,0.84
+older_adult,2190,0.2852,0.2018,1.44
+school_child,1103,0.1437,0.1206,0.86
+heavy_truck,938,0.1222,0.2399,1.72
+cyclist,936,0.1219,0.0577,0.41
 motorcyclist,875,0.114,0.1383,0.99
 red_light,477,0.0621,0.1216,0.87
